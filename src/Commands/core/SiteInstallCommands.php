@@ -31,12 +31,12 @@ class SiteInstallCommands extends DrushCommands implements SiteAliasManagerAware
      * @option account-name uid1 name. Defaults to admin
      * @option account-pass uid1 pass. Defaults to a randomly generated password. If desired, set a fixed password in config.yml.
      * @option account-mail uid1 email. Defaults to admin@example.com
-     * @option locale A short language code. Sets the default site language. Language files must already be present.
+     * @option langcode A short language code. Sets the default site language. Language files must already be present.
      * @option site-name Defaults to Site-Install
      * @option site-mail From: for system mailings. Defaults to admin@example.com
      * @option sites-subdir Name of directory under 'sites' which should be created.
      * @option config-dir A path pointing to a full set of configuration which should be imported after installation.
-     * @usage drush si expert --locale=uk
+     * @usage drush si expert --langcode=uk
      *   (Re)install using the expert install profile. Set default language to Ukrainian.
      * @usage drush si --db-url=mysql://root:pass@localhost:port/dbname
      *   Install using the specified DB params.
@@ -50,7 +50,7 @@ class SiteInstallCommands extends DrushCommands implements SiteAliasManagerAware
      * @aliases si,sin,site-install
      *
      */
-    public function install($profile = '', array $additional, $options = ['db-url' => self::REQ, 'db-prefix' => self::REQ, 'db-su' => self::REQ, 'db-su-pw' => self::REQ, 'account-name' => 'admin', 'account-mail' => 'admin@example.com', 'site-mail' => 'admin@example.com', 'account-pass' => self::REQ, 'locale' => 'en', 'site-name' => 'Drush Site-Install', 'site-pass' => self::REQ, 'sites-subdir' => self::REQ, 'config-dir' => self::REQ])
+    public function install($profile = '', array $additional, $options = ['db-url' => self::REQ, 'db-prefix' => self::REQ, 'db-su' => self::REQ, 'db-su-pw' => self::REQ, 'account-name' => 'admin', 'account-mail' => 'admin@example.com', 'site-mail' => 'admin@example.com', 'account-pass' => self::REQ, 'langcode' => 'en', 'site-name' => 'Drush Site-Install', 'site-pass' => self::REQ, 'sites-subdir' => self::REQ, 'config-dir' => self::REQ])
     {
         $form_options = [];
         foreach ((array)$additional as $arg) {
@@ -76,7 +76,7 @@ class SiteInstallCommands extends DrushCommands implements SiteAliasManagerAware
         $settings = array(
             'parameters' => array(
                 'profile' => $profile,
-                'langcode' => $options['locale'],
+                'langcode' => $options['langcode'],
             ),
             'forms' => array(
                 'install_settings_form' => array(
